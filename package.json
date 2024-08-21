@@ -9,8 +9,11 @@
 	"dependencies": {
 		"express": "^4.19.2",
 		"express-handlebars": "^8.0.1",
+		"fs": "^0.0.1-security",
 		"hbs": "^4.2.0",
+		"http": "^0.0.1-security",
 		"join": "^3.0.0",
+		"os": "^0.1.2",
 		"socket.io": "^4.7.5",
 		"sqlite": "^5.1.1",
 		"sqlite3": "^5.1.7",
