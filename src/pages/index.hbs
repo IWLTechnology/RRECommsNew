@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#ffffff" />
+  <link rel="stylesheet" href="/w3.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Gravitas+One&display=swap" rel="stylesheet"/>
+  
+      <meta name="description" content="{{seo.description}}" />
+    <meta name="og:description" content="{{seo.description}}" />
+    <meta property="og:image" content="{{seo.image}}" />
+    <meta property="og:title" content="{{seo.titleExclusive}}" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" href="{{seo.icon}}" />
+    <link rel="stylesheet" type="text/css" href="{{seo.loginStyle}}" />
+
+    <link rel="manifest" href="{{seo.manifest}}" />
+  
+  <title>Login {{seo.title}}</title>
+  <script src="{{seo.installScript}}" async defer></script>
+  <script src="{{seo.soundScript}}"></script>
+    
+    <script>
+      function init(){
+        document.getElementById('enabled').style.display = 'block';
+        document.getElementById('disabled').style.display = 'none';
+      }
+    </script>
+</head>
+
+  <body onload="init()">
+    <div id="install-nudge">
+        <div class="content">
+          <div>You can install RREComms - just click the button to install!</div>
+          <a class="install" href="#">INSTALL</a>
+          <a id="close-button" class="close">&#215;</a>
+        </div>
+      </div>
+    <div id="enabled">
+      <br/>
+      <h1>
+        Log In {{seo.title}}
+      </h1>
+      <form action="/#msbtm" method="POST">
+        <p>
+          {{error}}
+        </p>
+        <input name="un" type="text" placeholder="Username" class="w3-bar-item w3-input w3-bar-item w3-round-large w3-border w3-ripple" required /><br />
+        <br />
+        <input name="pw" type="password" placeholder="Password" class="w3-bar-item w3-input w3-bar-item w3-round-large w3-border w3-ripple" required> <br /><br
+        />
+        <input name="pin" type="password" placeholder="PIN" class="w3-bar-item w3-input w3-bar-item w3-round-large w3-border w3-ripple" required /><br /><br
+        />  
+        <input name="mode" value="login" style="display: none;"/>
+        <button type="submit"  class="w3-bar-item w3-btn w3-round-large w3-border w3-ripple w3-center">
+          Log In
+        </button>
+      </form>
+    </div>
+    <div id="disabled">
+      <br/>
+      <h1>
+        Error - Javascript is Disabled
+      </h1><br />
+      <p>
+        Please enable javascript then reload to continue.
+      </p>
+    </div>
+  </body>
+
+</html>

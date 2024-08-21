@@ -1,0 +1,155 @@
+#enabled{
+  display: none;
+}
+body {
+  color: green;
+}
+button {
+  text-align: center;
+  color: red;
+  background-color: black;
+}
+.img1 {
+  width: 166.666666667px;
+  height: 116.666666667px;
+}
+.img2 {
+  width: 400px;
+  height: 301px;
+}
+tag {
+  background-color: grey
+}
+h1 {
+  font-family: Permanent Marker; /* Permanent Marker | Abril Fatface | Alfa Slab One | Gravitas One / Abhaya Libre*/
+}
+h3 {
+  font-family: Abril Fatface;
+}
+.timePosted {
+display: none;
+}
+
+img.install {
+width: 375px;
+max-width: 100%;
+display:block;
+margin: 0.5rem auto 1rem 0;
+}
+
+#button-notifications,
+#form-notification,
+#badging-area,
+#install-nudge .show-for-portrait,
+.show-for-landscape {
+margin-bottom: 1rem;
+display: none;
+}
+
+#install-nudge {
+padding: 0.5rem 2rem;
+text-align: left;
+background-color: black;
+margin-bottom: 0;
+
+/* Display is controlled in JavaScript */
+display: none;
+}
+
+#install-nudge .content {
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+}
+
+#install-nudge div {
+font-size: 0.8rem;
+display: inline-block;
+padding: 0.25rem 0;
+}
+
+#install-nudge * {
+align-self: center;
+}
+
+#install-nudge a {
+display: inline-block;
+width: auto;
+font-size: 0.7rem;
+background-color: #ffffff;
+padding: 0.25rem 1.25rem 0.25rem 1.25rem;
+margin-left: 0.75rem;
+font-weight: bold;
+text-decoration: none;
+border-radius: 0.75rem;
+color: #765c00;
+}
+
+#install-nudge a.close {
+background-color: transparent;
+padding: 0 0 0.25rem 0;
+font-size: 1.5rem;
+cursor: pointer;
+background: none;
+border: none;
+-webkit-appearance: none;
+}
+
+.ab {
+float: right;
+}
+.logo {
+width: 65px;
+height: 65px;
+}
+.sendLogo {
+width: 50px;
+height: 50px;
+color: white;
+background-color: white;
+}
+.sendLogoBase {
+background-color: white;
+}
+.head {
+font-family: Permanent Marker;
+font-size: 20px;
+}
+.messageBox {
+font-family: Abhaya Libre;
+font-size: 20px;
+}
+.start:hover {
+  background-color: black!important;
+  color: white!important;
+  cursor: default!important;
+}
+.messageBtn{
+  font-size: 40px;
+}
+.postBtn{
+  background-color: white;
+  color: black;
+}
+.messagePostedBy{
+display: none;
+}
+
+.postAvatar{
+float: left!important;
+text-align: left!important;
+border-radius: 100px;
+height: 100px!important;
+}
+
+.chat{
+border-radius: 40px!important;
+}
+
+.senderHeader{
+  font-family: Alfa Slab One;
+}
+
+.hidden{
+  display: none;
+}

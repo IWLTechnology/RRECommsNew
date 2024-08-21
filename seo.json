@@ -1,0 +1,17 @@
+{
+  "glitch-help-instructions": "For a custom domain, change the 'url' parameter from 'glitch-default' to your domain _without_ a traling slash, like 'https://www.example.com'",
+  "title": "| RREComms",
+  "description": "A downloadable and custom chat application",
+  "titleExclusive": "RREComms",
+  "url": "glitch-default",
+  "icon": "https://cdn.glitch.global/6e956837-d71d-4381-b8e8-10bc54d84ceb/IWL_ROCKET_LOGO.jpg?v=1709518823810",
+  "image": "https://cdn.glitch.global/7fa50741-117a-440b-9131-6b9e1e32b36c/Logo-Plug-WhiteBG.png?v=1686796219050",
+  "manifest": "manifest.json",
+  "stylesheet": "style.css",
+  "installScript": "install.js",
+  "chatroomScript": "cr.js",
+  "soundScript": "./soundjs-NEXT.combined.js",
+  "chatroomStyle": "chatroomStyle.css",
+  "loginStyle": "loginStyle.css",
+  "db": "SQLite"
+}
