@@ -1,7 +1,4 @@
-const eimage = 'https://cdn.glitch.global/6e956837-d71d-4381-b8e8-10bc54d84ceb/unnamed.jpg?v=1709269377610';
-const rimage = 'https://cdn.glitch.global/6e956837-d71d-4381-b8e8-10bc54d84ceb/fedora.png?v=1714808035931';
-const pimage = 'https://cdn.glitch.global/6e956837-d71d-4381-b8e8-10bc54d84ceb/bear.png?v=1714807921101';
-const simage = 'https://cdn.glitch.global/6e956837-d71d-4381-b8e8-10bc54d84ceb/robot-icon-1024x819-ni01znnq.png?v=1715834187097';
+const images = ['https:/, /cdn.glitch.global/6e956837-d71d-4381-b8e8-10bc54d84ceb/robot-icon-1024x819-ni01znnq.png?v=1715834187097','https://cdn.glitch.global/6e956837-d71d-4381-b8e8-10bc54d84ceb/fedora.png?v=1714808035931','https://cdn.glitch.global/6e956837-d71d-4381-b8e8-10bc54d84ceb/bear.png?v=1714807921101'];
 
 const express = require('express');
 const http = require('http');
@@ -24,13 +21,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'hbs');
 var server = http.createServer(app);
 var io = socket(server, {
-  connectionStateRecovery: {}
+	connectionStateRecovery: {}
 });
 
 
 app.get("/", async (req, res) => {
   let params = req.query.raw ? {} : { seo: seo };
-
+  
   res.render('index', params);
 });
 app.get("/PWA", async (req, res) => {
@@ -40,39 +37,35 @@ app.get("/PWA", async (req, res) => {
 });
 
 io.on('connection', async (socket) => {
-  console.log('a user connected');
-  socket.on('disconnect', () => {
-    console.log('a user diconnected');
-  });
-  socket.on('connection', () => {
-  socket.on('loginRequest', async () => {
-    socket.emit('htmlUpdate', {});
-  });
-  socket.on('postRequest', async () => {
-    socket.emit('htmlUpdate', {});
-  });
-  socket.on('deleteRequest', async () => {
-    socket.emit('htmlUpdate', {});
-  });
-  socket.on('getRequest', async (data) => {
-    socket.emit('htmlUpdate', {});
-  });
-  socket.on('importRequest', async (data) => {
-    socket.emit('htmlUpdate', {});
-  });
-  socket.on('exportRequest', async (data) => {
-    socket.emit('htmlUpdate', {});
-  });
-  socket.on('adminRequest', async (data) => {
-    socket.emit('htmlUpdate', {});
-  });
-})
+	socket.on('disconnect', () => {
+		console.log('a user diconnected');
+	});
+	socket.on('play', async () => {
+		db.increaseCounter();
+		var counter = await db.getCounter();
+		if (counter) {
+			counter = counter.map((Counter) => Counter.counter);
+		}
+		io.emit('counterUpdate', {newValue: counter});
+	});
+	socket.on('requestHighscores', async () => {
+		var highscores = await db.getHighscores();
+		socket.emit('highscoresReturn', highscores);
+	});
+	socket.on('checkHighscores', async () => {
+		var highscores = await db.getHighscores();
+		socket.emit('checkHighscoresReturn', highscores);
+	});
+	socket.on('newHighscore', async (data) => {
+		 db.addHighscore({ time: data.time, name: data.name, correct: data.correct, nofq: data.nofq});
+	});
+});
 
 app.post('/', async (req, res) => {
   let params = req.query.raw ? {} : { seo: seo };
   const status = 200;
   var view = '/src/pages/index.hbs';
-
+    
     if(req.body.mode == "post"){
       if(req.body.un == process.env.run && req.body.pw == process.env.rpw && req.body.pin == process.env.rpin){
         view = '/src/pages/post.hbs';
@@ -80,7 +73,7 @@ app.post('/', async (req, res) => {
         var time = new Date();
         time = time.toLocaleString('en-US', { timeZone: 'Australia/Perth' });
         txt = txt + `<p class="timePosted">${time}</p>`;
-    txt = txt.replace(/\n/g, "<br />");
+	  txt = txt.replace(/\n/g, "<br />");
     txt = txt.replace(/;/g, ",");
     txt = txt.replace(/\'/g, "\"");
     await db.addMessage(txt);
@@ -90,7 +83,7 @@ app.post('/', async (req, res) => {
     var time = new Date();
     time = time.toLocaleString('en-US', { timeZone: 'Australia/Perth' });
     txt = txt + `<p class="timePosted">${time}</p>`;
-    txt = txt.replace(/\n/g, "<br />");
+	  txt = txt.replace(/\n/g, "<br />");
     txt = txt.replace(/;/g, ",");
     txt = txt.replace(/\'/g, "\"");
     await db.addMessage(txt);
@@ -100,7 +93,7 @@ app.post('/', async (req, res) => {
     var time = new Date();
     time = time.toLocaleString('en-US', { timeZone: 'Australia/Perth' });
     txt = txt + `<p class="timePosted">${time}</p>`;
-    txt = txt.replace(/\n/g, "<br />");
+	  txt = txt.replace(/\n/g, "<br />");
     txt = txt.replace(/;/g, ",");
     txt = txt.replace(/\'/g, "\"");
     await db.addMessage(txt);
@@ -134,19 +127,19 @@ app.post('/', async (req, res) => {
         if(dbIn){
           chats = dbIn.map((dbIn) => dbIn.chat); //import chats
           ids = dbIn.map((dbIn) => dbIn.id); //import ids
-
+          
           var sendChats = "";
           var sendIds = "";
           sendChats += chats[chats.length-1];
           for(var i = chats.length-2; i > 1; i--){
             sendChats += ";" + chats[i];
           } //chats now in sendChats, separated by &
-
+          
           sendIds += ids[ids.length-1];
           for(var i = ids.length-2; i > 1; i--){
             sendIds += ";" + ids[i];
           } //ids now in sendIds, separated by &
-
+          
           params.ids = sendIds;
           params.chats = sendChats; //Now sent to page.
         }
@@ -162,19 +155,19 @@ app.post('/', async (req, res) => {
         if(dbIn){
           chats = dbIn.map((dbIn) => dbIn.chat); //import chats
           ids = dbIn.map((dbIn) => dbIn.id); //import ids
-
+          
           var sendChats = "";
           var sendIds = "";
           sendChats += chats[chats.length-1];
           for(var i = chats.length-2; i > 1; i--){
             sendChats += ";" + chats[i];
           } //chats now in sendChats, separated by &
-
+          
           sendIds += ids[ids.length-1];
           for(var i = ids.length-2; i > 1; i--){
             sendIds += ";" + ids[i];
           } //ids now in sendIds, separated by &
-
+          
           params.ids = sendIds;
           params.chats = sendChats; //Now sent to page.
         } 
@@ -190,26 +183,26 @@ app.post('/', async (req, res) => {
         if(dbIn){
           chats = dbIn.map((dbIn) => dbIn.chat); //import chats
           ids = dbIn.map((dbIn) => dbIn.id); //import ids
-
+          
           var sendChats = "";
           var sendIds = "";
           sendChats += chats[chats.length-1];
           for(var i = chats.length-2; i > 1; i--){
             sendChats += ";" + chats[i];
           } //chats now in sendChats, separated by &
-
+          
           sendIds += ids[ids.length-1];
           for(var i = ids.length-2; i > 1; i--){
             sendIds += ";" + ids[i];
           } //ids now in sendIds, separated by &
-
+          
           params.ids = sendIds;
           params.chats = sendChats; //Now sent to page.
         } 
       }else{
         params.error = "ERROR 403. ACCESS DENIED."
       }
-
+      
     }else if(req.body.mode == "login"){
       //Login
       if(req.body.un == process.env.run && req.body.pw == process.env.rpw && req.body.pin == process.env.rpin){
@@ -230,19 +223,19 @@ app.post('/', async (req, res) => {
         if(dbIn){
           chats = dbIn.map((dbIn) => dbIn.chat); //import chats
           ids = dbIn.map((dbIn) => dbIn.id); //import ids
-
+          
           var sendChats = "";
           var sendIds = "";
           sendChats += chats[chats.length-1];
           for(var i = chats.length-2; i > 1; i--){
             sendChats += ";" + chats[i];
           } //chats now in sendChats, separated by &
-
+          
           sendIds += ids[ids.length-1];
           for(var i = ids.length-2; i > 1; i--){
             sendIds += ";" + ids[i];
           } //ids now in sendIds, separated by &
-
+          
           params.ids = sendIds;
           params.chats = sendChats; //Now sent to page.
         }
@@ -263,19 +256,19 @@ app.post('/', async (req, res) => {
         if(dbIn){
           chats = dbIn.map((dbIn) => dbIn.chat); //import chats
           ids = dbIn.map((dbIn) => dbIn.id); //import ids
-
+          
           var sendChats = "";
           var sendIds = "";
           sendChats += chats[chats.length-1];
           for(var i = chats.length-2; i > 1; i--){
             sendChats += ";" + chats[i];
           } //chats now in sendChats, separated by &
-
+          
           sendIds += ids[ids.length-1];
           for(var i = ids.length-2; i > 1; i--){
             sendIds += ";" + ids[i];
           } //ids now in sendIds, separated by &
-
+        
           params.ids = sendIds;
           params.chats = sendChats; //Now sent to page.
         }
@@ -296,19 +289,19 @@ app.post('/', async (req, res) => {
         if(dbIn){
           chats = dbIn.map((dbIn) => dbIn.chat); //import chats
           ids = dbIn.map((dbIn) => dbIn.id); //import ids
-
+          
           var sendChats = "";
           var sendIds = "";
           sendChats += chats[chats.length-1];
           for(var i = chats.length-2; i > 1; i--){
             sendChats += ";" + chats[i];
           } //chats now in sendChats, separated by &
-
+          
           sendIds += ids[ids.length-1];
           for(var i = ids.length-2; i > 1; i--){
             sendIds += ";" + ids[i];
           } //ids now in sendIds, separated by &
-
+        
           params.ids = sendIds;
           params.chats = sendChats; //Now sent to page.
         }
@@ -316,7 +309,7 @@ app.post('/', async (req, res) => {
         //Login fail
         params.error = 'INCORRECT LOGIN DETAILS';
       }
-
+      
     }else if(req.body.mode == 'importChats'){
 
     }else{
@@ -327,5 +320,5 @@ app.post('/', async (req, res) => {
 })
 
 server.listen(3000, () => {
-  console.log('Server active.')
+	console.log('Server active.')
 });
