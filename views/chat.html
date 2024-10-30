@@ -1,4 +1,236 @@
-function send() {
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta name="theme-color" content="#ffffff" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="w3.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Gravitas+One&display=swap" rel="stylesheet"/>
+  
+    <link rel="icon" href="https://cdn.glitch.global/6e956837-d71d-4381-b8e8-10bc54d84ceb/IWL_ROCKET_LOGO.jpg?v=1709518823810" />
+
+  <title>Chat | RREComms</title>
+  <script src="soundlibrary.js"></script>
+  <style>
+    #enabled{
+  display: none;
+}
+body {
+  color: green;
+}
+button {
+  text-align: center;
+  color: red;
+  background-color: black;
+}
+.img1 {
+  width: 166.666666667px;
+  height: 116.666666667px;
+}
+.img2 {
+  width: 400px;
+  height: 301px;
+}
+tag {
+  background-color: grey
+}
+h1 {
+  font-family: Permanent Marker;
+}
+h3 {
+  font-family: Abril Fatface;
+}
+.timePosted {
+display: none;
+}
+
+.ab {
+float: right;
+}
+.logo {
+width: 65px;
+height: 65px;
+}
+.sendLogo {
+width: 50px;
+height: 50px;
+color: white;
+background-color: white;
+}
+.sendLogoBase {
+background-color: white;
+}
+.head {
+font-family: Permanent Marker;
+font-size: 20px;
+}
+.messageBox {
+font-family: Abhaya Libre;
+font-size: 20px;
+}
+.start:hover {
+  background-color: black!important;
+  color: white!important;
+  cursor: default!important;
+}
+.messageBtn{
+  font-size: 40px;
+}
+.postBtn{
+  background-color: white;
+  color: black;
+}
+.messagePostedBy{
+display: none;
+}
+
+.postAvatar{
+float: left!important;
+text-align: left!important;
+border-radius: 100px;
+height: 100px!important;
+}
+
+.chat{
+border-radius: 40px!important;
+}
+
+.senderHeader{
+  font-family: Alfa Slab One;
+}
+
+.hidden{
+  display: none;
+}
+  </style>
+</head>
+
+<body onload="init()" style="background-color: #2E4053; color: white;">
+  <div id="enabled">
+      <div class="w3-top">
+      <div class="w3-bar w3-black">
+        <h3 style="" class="w3-bar-item w3-button w3-show-inline-block start"><span class="logo"></span><span></span><span class="head">Chat | RREComms</span></h3>
+        <h3 onclick="logout()" class="w3-bar-item w3-button w3-right ab w3-show-inline-block"><span class="logo"></span><span></span><span class="head">Logout</span></h3>
+        <h3 onclick="settings(0)" class="w3-bar-item w3-button w3-right ab w3-show-inline-block"><span class="logo"></span><span></span><span class="head">Settings</span></h3>
+      </div>
+    </div>
+    <div class="w3-center">
+    <br/><br/><br/><br/><br/><br/>
+        <h1>
+          Welcome!
+        </h1>
+      <hr>
+    
+    <div id="iframes" style="display: none;">
+    
+  </div>
+  <div id="messageBox" class="w3-center">
+    <input type="password" style="display: none;" value="{{chats}}" id="chats">
+    <input type="password" style="display: none;" value="{{un}}" id="un">
+    <input type="password" style="display: none;" value="{{pw}}" id="pw">
+    <input type="password" style="display: none;" value="{{pin}}" id="pin">
+    <input type="password" style="display: none;" value="{{ids}}" id="ids">
+    <input id="name" type="password" value="{{name}}" style="display: none;">
+    <input id="avatar" type="text" value="{{image}}" style="display: none;">
+    <input id="rimage" type="text" value="{{rimage}}" style="display: none;">
+    <input id="pimage" type="text" value="{{pimage}}" style="display: none;">
+    <input id="eimage" type="text" value="{{eimage}}" style="display: none;">
+    <input id="simage" type="text" value="{{simage}}" style="display: none;">
+    <div id="messages" class="w3-center w3-bar">
+      
+    </div>
+    <br/>
+    <br/>
+    <br/>
+  </div>
+                  <p style="display: none;" id="allowedToPost">YES</p>
+          <a class="w3-bar" href="#msbtm" style="width: 100%;" id="msbtm">
+    </a>
+  <br />
+  <br />
+  <br />
+      <br />
+  <br />
+  <br />
+    <div class="w3-bottom w3-black">
+      <div class="w3-bar">
+        <h3 class="w3-bar-item ab w3-show-inline-block">
+          <textarea id="post" type="text" name="post" onkeydown="processKeyPress(event)" placeholder="Enter your message" class=" w3-bar-item w3-input w3-bar-item w3-round-large w3-border w3-border-black w3-ripple messageBox"></textarea><span class="w3-bar-item"></span>
+        </h3>
+      <h3 onclick="image()" class="w3-bar-item w3-button w3-show-inline-block messageBtn"><span class="w3-bar-item w3-input w3-bar-item w3-round-large w3-border w3-border-blue w3-ripple sendLogoBase"><img src="https://cdn.glitch.global/6e956837-d71d-4381-b8e8-10bc54d84ceb/imgicon.png?v=1709691737708" class="sendLogo"></span></h3>
+        <h3 onclick="video()" class="w3-bar-item w3-button w3-show-inline-block messageBtn"><span class="w3-bar-item w3-input w3-bar-item w3-round-large w3-border w3-border-blue w3-ripple sendLogoBase"><img src="https://cdn.glitch.global/6e956837-d71d-4381-b8e8-10bc54d84ceb/videoicon.png?v=1709692127041" class="sendLogo"></span></h3>
+        <h3 onclick="audio()" class="w3-bar-item w3-button w3-show-inline-block messageBtn"><span class="w3-bar-item w3-input w3-bar-item w3-round-large w3-border w3-border-blue w3-ripple sendLogoBase"><img src="https://cdn.glitch.global/6e956837-d71d-4381-b8e8-10bc54d84ceb/audioicon.png?v=1709692770699" class="sendLogo"></span></h3>
+        <h3 onclick="link()" class="w3-bar-item w3-button w3-show-inline-block messageBtn"><span class="w3-bar-item w3-input w3-bar-item w3-round-large w3-border w3-border-blue w3-ripple sendLogoBase"><img src="https://cdn.glitch.global/6e956837-d71d-4381-b8e8-10bc54d84ceb/linkicon.png?v=1709693004932" class="sendLogo"></span></h3>
+        <h3 onclick="send()" class="w3-bar-item w3-button w3-show-inline-block messageBtn"><span class="w3-bar-item w3-input w3-bar-item w3-round-large w3-border w3-border-purple w3-ripple postBtn" id="postbtn">Post</span></h3>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div id="disabled">
+    <h1>
+      Error - Javascript is Disabled
+    </h1><br/>
+    <p>
+      Please enable javascript then reload to continue.
+    </p>
+  </div> 
+  <div id="settings" style="display: none;">
+    <div class="w3-top">
+    <div class="w3-bar w3-black">
+      <h3 style="" class="w3-bar-item w3-button w3-show-inline-block start"><span class="logo"></span><span></span><span class="head">Chat | RREComms</span></h3>
+      <h3 onclick="logout()" class="w3-bar-item w3-button w3-right ab w3-show-inline-block"><span class="logo"></span><span></span><span class="head">Logout</span></h3>
+    </div>
+  </div>
+  <div class="w3-center">
+  <br/><br/><br/><br/><br/><br/>
+    <h1>Volume:</h1>
+    <hr>
+  <br />
+    <p>Mute all sound: <span>&nbsp;</span><button class="w3-btn w3-border-blue w3-border w3-blue w3-round-large w3-ripple" onclick="soundChange(0)" id="muteAllSound">Off</button></p>
+    <p>Play sound when I post messages: <span>&nbsp;</span><button class="w3-btn w3-border-blue w3-border w3-blue w3-round-large w3-ripple" onclick="soundChange(1)" id="postSound">On</button></p>
+    <p>Play sound when I delete messages: <span>&nbsp;</span><button class="w3-btn w3-border-blue w3-border w3-blue w3-round-large w3-ripple" onclick="soundChange(2)" id="deleteSound">On</button></p>
+    <p>Play sound when the messages change: <span>&nbsp;</span><button class="w3-btn w3-border-blue w3-border w3-blue w3-round-large w3-ripple" onclick="soundChange(3)" id="newSound">On</button></p>
+    <div class="hidden">
+  <p id="muteAllSound2">Off</p>
+    <p id="postSound2">On</p>
+    <p id="deleteSound2">On</p>
+    <p id="newSound2">On</p>
+      <p id="delNoMatterWhat2">Off</p>
+      <p id="forcePreview2">On</p>
+    </div>
+  <br />
+    <h1>Misc:</h1>
+    <hr>
+    <br>
+     <p>Show the delete button no matter what: <span>&nbsp;</span><button class="w3-btn w3-border-blue w3-border w3-blue w3-round-large w3-ripple" id="delNoMatterWhat" onclick="dnw()">Off</button></p>
+    <p>Force preivew before post: <span>&nbsp;</span><button class="w3-btn w3-border-blue w3-border w3-blue w3-round-large w3-ripple" id="forcePreview" onclick="forcePreview()">On</button></p>
+    <div id="admin" style="display: block;">
+      <h1>Admin:</h1>
+      <hr>
+      <br>
+      <p><button class="w3-btn w3-border-blue w3-border w3-blue w3-round-large w3-ripple" id="enterAdmin">Enter Admin</button></p>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+  <div class="w3-bottom w3-black">
+    <div class="w3-bar">
+    <h3 onclick="settings(1)" class="w3-bar-item w3-button w3-show-inline-block messageBtn"><span class="w3-bar-item w3-input w3-bar-item w3-white w3-round-large w3-border w3-border-blue w3-ripple sendLogoBase">Cancel</span></h3>
+      <h3 onclick="settings(2)" class="w3-bar-item w3-button w3-show-inline-block messageBtn"><span class="w3-bar-item w3-input w3-bar-item w3-white w3-round-large w3-border w3-border-blue w3-ripple sendLogoBase">Accept</span></h3>
+    </div>
+  </div>
+  </div>
+  </div>
+    <script>function send() {
   if (
     document.getElementById("post").value != "" &&
     document.getElementById("post").value != undefined &&
@@ -587,3 +819,8 @@ function forcePreview() {
     x.innerHTML = "Off";
   }
 }
+</script>
+  </body>
+
+
+</html>
