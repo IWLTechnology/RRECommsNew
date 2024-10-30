@@ -1,7 +1,8 @@
 {
   "name": "RREComms",
   "version": "1.0.0",
-  "description": "",
+  "repository": "https://github.com/IWLTechnology/RREComms",
+  "description": "A secure, E2E encrypted chat app.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,10 +12,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.19.2",
-    "express-handlebars": "^7.1.2",
+    "express": "^4.21.0",
+    "express-handlebars": "^8.0.1",
     "hbs": "^4.2.0",
     "join": "^3.0.0",
+    "node-rsa": "^1.1.1",
     "socket.io": "^4.7.5",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7",

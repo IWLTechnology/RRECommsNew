@@ -22,7 +22,8 @@ dbWrapper
           "CREATE TABLE Chats (id INTEGER PRIMARY KEY AUTOINCREMENT, chat TEXT)"
         );
         await db.run(
-          `INSERT INTO Chats (chat) VALUES ('SYSTEM: DO NOT DELETE THIS MESSAGE! Welcome to the new RREComms! Everything is up to date and secure. <input type="text" value="Server" class="messagePostedBy" style="display: none;"><p class="timePosted">1/1/2000 12:00:00 PM</p>')`
+          `INSERT INTO Chats (chat) VALUES ('SYSTEM MESSAGE: DO NOT DELETE THIS MESSAGE! Welcome to RREComms! If you are seeing this message, it means that the server has been cleared.<input type="text" value="S" class="messagePostedBy" style="display: none"><p class="timePosted">Unknown Date</p>')
+          `
         );
         await db.run(
           `INSERT INTO Chats (chat) VALUES ('SYSTEM: DO NOT DELETE THIS MESSAGE! Welcome to the new RREComms! Everything is up to date and secure. <input type="text" value="Server" class="messagePostedBy" style="display: none;"><p class="timePosted">1/1/2000 12:00:00 PM</p>')`

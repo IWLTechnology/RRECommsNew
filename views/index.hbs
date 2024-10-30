@@ -12,57 +12,119 @@
     <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Gravitas+One&display=swap" rel="stylesheet"/>
-  
-      <meta name="description" content="{{seo.description}}" />
-    <meta name="og:description" content="{{seo.description}}" />
-    <meta property="og:image" content="{{seo.image}}" />
-    <meta property="og:title" content="{{seo.titleExclusive}}" />
-    <meta name="twitter:card" content="summary" />
-    <link rel="icon" href="{{seo.icon}}" />
-    <link rel="stylesheet" type="text/css" href="{{seo.loginStyle}}" />
+    <link rel="icon" href="https://cdn.glitch.global/6e956837-d71d-4381-b8e8-10bc54d84ceb/IWL_ROCKET_LOGO.jpg?v=1709518823810" />
+    <style>
+#enabled {
+  display: none;
+}
+button {
+  background-color: #8B008B!important;
+  color: white!important;
+  border-color: #EBDEF0!important;
+}
+input {
+  color: #8B008B!important;
+  background-color: white!important;
+  border-color: #8B008B!important;
+}
+body {
+  background-color: #EBDEF0;
+  text-align: center;
+}
+p {
+  color: #8B008B;
+}
+h1 {
+  color: #8B008B;
+}
 
-    <link rel="manifest" href="{{seo.manifest}}" />
+img.install {
+  width: 375px;
+  max-width: 100%;
+  display:block;
+  margin: 0.5rem auto 1rem 0;
+}
+
+#button-notifications,
+#form-notification,
+#badging-area,
+#install-nudge .show-for-portrait,
+.show-for-landscape {
+  margin-bottom: 1rem;
+  display: none;
+}
+
+#install-nudge {
+  color: #EBDEF0;
+  padding: 0.5rem 2rem;
+  text-align: left;
+  background-color: #8B008B;
+  margin-bottom: 0;
+
+  /* Display is controlled in JavaScript */
+  display: none;
+}
+
+#install-nudge .content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#install-nudge div {
+  font-size: 0.8rem;
+  display: inline-block;
+  padding: 0.25rem 0;
+}
+
+#install-nudge * {
+  align-self: center;
+}
+
+#install-nudge a {
+  display: inline-block;
+  width: auto;
+  font-size: 0.7rem;
+  background-color: #EBDEF0;
+  padding: 0.25rem 1.25rem 0.25rem 1.25rem;
+  margin-left: 0.75rem;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 0.75rem;
+  color: #8B008B;
+}
+
+#install-nudge a.close {
+  background-color: transparent!important;
+  color: #EBDEF0!important;
+  padding: 0 0 0.25rem 0;
+  font-size: 1.5rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  -webkit-appearance: none;
+}
+</style>
   
-  <title>Login {{seo.title}}</title>
-  <script src="{{seo.installScript}}" async defer></script>
-  <script src="{{seo.soundScript}}"></script>
-    
-    <script>
-      function init(){
-        document.getElementById('enabled').style.display = 'block';
-        document.getElementById('disabled').style.display = 'none';
-      }
-    </script>
+  <title>Login | RREComms</title>
+  <script src="soundlibrary.js"></script>
 </head>
 
   <body onload="init()">
-    <div id="install-nudge">
-        <div class="content">
-          <div>You can install RREComms - just click the button to install!</div>
-          <a class="install" href="#">INSTALL</a>
-          <a id="close-button" class="close">&#215;</a>
-        </div>
-      </div>
     <div id="enabled">
       <br/>
       <h1>
-        Log In {{seo.title}}
+        Log In
       </h1>
-      <form action="/#msbtm" method="POST">
-        <p>
-          {{error}}
+        <p id="error">
         </p>
         <input name="un" type="text" placeholder="Username" class="w3-bar-item w3-input w3-bar-item w3-round-large w3-border w3-ripple" required /><br />
         <br />
         <input name="pw" type="password" placeholder="Password" class="w3-bar-item w3-input w3-bar-item w3-round-large w3-border w3-ripple" required> <br /><br
         />
-        <input name="pin" type="password" placeholder="PIN" class="w3-bar-item w3-input w3-bar-item w3-round-large w3-border w3-ripple" required /><br /><br
-        />  
-        <input name="mode" value="login" style="display: none;"/>
         <button type="submit"  class="w3-bar-item w3-btn w3-round-large w3-border w3-ripple w3-center">
           Log In
         </button>
-      </form>
     </div>
     <div id="disabled">
       <br/>
@@ -73,6 +135,19 @@
         Please enable javascript then reload to continue.
       </p>
     </div>
+    <script src="/socket.io/socket.io.js"></script>
+        <script>
+      var myEncryptionKey;
+      var socket = io();
+      function init(){
+        document.getElementById('enabled').style.display = 'block';
+        document.getElementById('disabled').style.display = 'none';
+      }
+      socket.on("serverSend", (data) => {
+	      myEncryptionKey.decrypt(data, 'utf8');
+        
+      });
+    </script>
   </body>
 
 </html>
