@@ -1,153 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-
   <head>
-
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#ffffff" />
-  <link rel="stylesheet" href="/w3.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@800&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Gravitas+One&display=swap" rel="stylesheet"/>
-    <link rel="icon" href="https://cdn.glitch.global/6e956837-d71d-4381-b8e8-10bc54d84ceb/IWL_ROCKET_LOGO.jpg?v=1709518823810" />
-    <style>
-#enabled {
-  display: none;
-}
-button {
-  background-color: #8B008B!important;
-  color: white!important;
-  border-color: #EBDEF0!important;
-}
-input {
-  color: #8B008B!important;
-  background-color: white!important;
-  border-color: #8B008B!important;
-}
-body {
-  background-color: #EBDEF0;
-  text-align: center;
-}
-p {
-  color: #8B008B;
-}
-h1 {
-  color: #8B008B;
-}
-
-img.install {
-  width: 375px;
-  max-width: 100%;
-  display:block;
-  margin: 0.5rem auto 1rem 0;
-}
-
-#button-notifications,
-#form-notification,
-#badging-area,
-#install-nudge .show-for-portrait,
-.show-for-landscape {
-  margin-bottom: 1rem;
-  display: none;
-}
-
-#install-nudge {
-  color: #EBDEF0;
-  padding: 0.5rem 2rem;
-  text-align: left;
-  background-color: #8B008B;
-  margin-bottom: 0;
-
-  /* Display is controlled in JavaScript */
-  display: none;
-}
-
-#install-nudge .content {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-#install-nudge div {
-  font-size: 0.8rem;
-  display: inline-block;
-  padding: 0.25rem 0;
-}
-
-#install-nudge * {
-  align-self: center;
-}
-
-#install-nudge a {
-  display: inline-block;
-  width: auto;
-  font-size: 0.7rem;
-  background-color: #EBDEF0;
-  padding: 0.25rem 1.25rem 0.25rem 1.25rem;
-  margin-left: 0.75rem;
-  font-weight: bold;
-  text-decoration: none;
-  border-radius: 0.75rem;
-  color: #8B008B;
-}
-
-#install-nudge a.close {
-  background-color: transparent!important;
-  color: #EBDEF0!important;
-  padding: 0 0 0.25rem 0;
-  font-size: 1.5rem;
-  cursor: pointer;
-  background: none;
-  border: none;
-  -webkit-appearance: none;
-}
-</style>
-  
-  <title>Login | RREComms</title>
-  <script src="soundlibrary.js"></script>
-</head>
-
-  <body onload="init()">
-    <div id="enabled">
-      <br/>
-      <h1>
-        Log In
-      </h1>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="description" content="A secure and private chat app for you.">
+    <link rel="stylesheet" href="./w3.css">
+    <link href="./fonts.css" rel="stylesheet">
+    <link rel="icon" href="https://cdn.glitch.global/aac3c734-7514-4e68-898a-66574e5cc449/logofav1-3.png?v=1731038687620">
+    <link
+			rel="stylesheet"
+			href="./jquery-ui.css">
+    <title>Login | RREComms</title>
+    <link href="./ls.css" rel="stylesheet">
+  </head>
+  <body onload="initLogin()">
+    <div id="pageToReplace">
+      <div id="enabled">
+        <br>
+        <h1>
+          Log In
+        </h1>
         <p id="error">
         </p>
-        <input name="un" type="text" placeholder="Username" class="w3-bar-item w3-input w3-bar-item w3-round-large w3-border w3-ripple" required /><br />
-        <br />
-        <input name="pw" type="password" placeholder="Password" class="w3-bar-item w3-input w3-bar-item w3-round-large w3-border w3-ripple" required> <br /><br
-        />
-        <button type="submit"  class="w3-bar-item w3-btn w3-round-large w3-border w3-ripple w3-center">
-          Log In
+        <form>
+          <input id="l1" type="text" placeholder="Username" autocomplete="username" class="w3-bar-item w3-input w3-bar-item w3-round-large w3-border w3-ripple"><br>
+          <br>
+          <input id="l2" type="password" placeholder="Password" autocomplete="current-password" class="w3-bar-item w3-input w3-bar-item w3-round-large w3-border w3-ripple">
+        </form>
+        <br>
+        <br>
+        <button id="login-btn" class="w3-bar-item w3-btn w3-round-large w3-border w3-ripple w3-center" onclick="loginBtn()">
+        Log In
         </button>
+      </div>
     </div>
-    <div id="disabled">
-      <br/>
+    <noscript>
+      <div>
+        <br>
+        <h1>
+          Error - Javascript is Disabled
+        </h1>
+        <br>
+        <p>
+          Please enable javascript then reload to continue.
+        </p>
+      </div>
+    </noscript>
+    <div id="loading">
       <h1>
-        Error - Javascript is Disabled
-      </h1><br />
-      <p>
-        Please enable javascript then reload to continue.
-      </p>
+        Loading...
+      </h1>
     </div>
+    <div class="modal" style="display: none;" id="modal-loading" data-backdrop="static">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-body text-center">
+            <div class="loading-spinner mb-2"></div>
+            <div>Loading...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="./jquery-1.1.1.min.js"></script>
+		<script src="./jquery-ui.js"></script>
+    <input style="display: none;" value="{{serverkey}}" id="serverPubKey">
+    <script src="./pages.js"></script>
+    <script src="./node-rsa.js"></script>
+    <script src="./index.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-        <script>
-      var myEncryptionKey;
-      var socket = io();
-      function init(){
-        document.getElementById('enabled').style.display = 'block';
-        document.getElementById('disabled').style.display = 'none';
-      }
-      socket.on("serverSend", (data) => {
-	      myEncryptionKey.decrypt(data, 'utf8');
-        
-      });
-    </script>
+    <script src="./soundlibrary.js"></script>
   </body>
-
 </html>

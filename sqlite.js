@@ -1,7 +1,4 @@
-
 const fs = require("fs");
-
-
 const dbFile = "./.data/choices.db";
 const exists = fs.existsSync(dbFile);
 const sqlite3 = require("sqlite3").verbose();
@@ -21,15 +18,13 @@ dbWrapper
         await db.run(
           "CREATE TABLE Chats (id INTEGER PRIMARY KEY AUTOINCREMENT, chat TEXT)"
         );
+        var time = new Date();
+        time = time.toLocaleString('en-US', { timeZone: 'Australia/Perth' });
         await db.run(
-          `INSERT INTO Chats (chat) VALUES ('SYSTEM MESSAGE: DO NOT DELETE THIS MESSAGE! Welcome to RREComms! If you are seeing this message, it means that the server has been cleared.<input type="text" value="S" class="messagePostedBy" style="display: none"><p class="timePosted">Unknown Date</p>')
+          `INSERT INTO Chats (chat) VALUES ('SYSTEM MESSAGE: DO NOT DELETE THIS MESSAGE! Welcome to RREComms! If you are seeing this message, it means that the server has been cleared.<input type="text" value="Server" class="messagePostedBy" style="display: none"><p class="timePosted">${time}</p>')
           `
         );
-        await db.run(
-          `INSERT INTO Chats (chat) VALUES ('SYSTEM: DO NOT DELETE THIS MESSAGE! Welcome to the new RREComms! Everything is up to date and secure. <input type="text" value="Server" class="messagePostedBy" style="display: none;"><p class="timePosted">1/1/2000 12:00:00 PM</p>')`
-        );
       } else {
-
       }
     } catch (dbError) {
       console.error(dbError);
@@ -67,11 +62,11 @@ module.exports = {
       await db.run(
           "CREATE TABLE Chats (id INTEGER PRIMARY KEY AUTOINCREMENT, chat TEXT)"
         );
-      await db.run(
-        `INSERT INTO Chats (chat) VALUES ('SYSTEM: DO NOT DELETE THIS MESSAGE! Welcome to the new RREComms! Everything is up to date and secure. <input type="text" value="Server" class="messagePostedBy" style="display: none;"><p class="timePosted">1/1/2000 12:00:00 PM</p>')`
-        );
-      await db.run(
-        `INSERT INTO Chats (chat) VALUES ('SYSTEM: DO NOT DELETE THIS MESSAGE! Welcome to the new RREComms! Everything is up to date and secure. <input type="text" value="Server" class="messagePostedBy" style="display: none;"><p class="timePosted">1/1/2000 12:00:00 PM</p>')`
+        var time = new Date();
+        time = time.toLocaleString('en-US', { timeZone: 'Australia/Perth' });
+        await db.run(
+          `INSERT INTO Chats (chat) VALUES ('SYSTEM MESSAGE: DO NOT DELETE THIS MESSAGE! Welcome to RREComms! If you are seeing this message, it means that the server has been cleared.<input type="text" value="Server" class="messagePostedBy" style="display: none"><p class="timePosted">${time}</p>')
+          `
         );
     } catch (dbError) {
       console.error(dbError);
