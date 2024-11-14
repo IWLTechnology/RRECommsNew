@@ -172,4 +172,4 @@ var chatHome = `<div id="enabled">
   </div>
   </div>`;
 
-var defaultHead = `<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#ffffff"><meta name="description" content="A secure and private chat app for you."><link rel="stylesheet" href="./w3.css"><link href="./fonts.css"><link rel="icon" href="https://cdn.glitch.global/aac3c734-7514-4e68-898a-66574e5cc449/logofav1-3.png?v=1731038687620"><link rel="stylesheet" href="./jquery-ui.css"><title>Loading... | RREComms</title>`;
+var defaultHead = `<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#ffffff"><meta name="description" content="A secure and private chat app for you."><link rel="stylesheet" href="./w3.css"><link href="./fonts.css" rel="stylesheet"><link rel="icon" href="https://cdn.glitch.global/aac3c734-7514-4e68-898a-66574e5cc449/logofav1-3.png?v=1731038687620"><link rel="stylesheet" href="./jquery-ui.css"><title>Loading... | RREComms</title>`;
