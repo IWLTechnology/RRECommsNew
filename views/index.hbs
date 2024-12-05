@@ -7,6 +7,7 @@
     <meta name="description" content="A secure and private chat app for you.">
     <link rel="stylesheet" href="./w3.css">
     <link href="./fonts.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/794377b8d4.js" crossorigin="anonymous"></script>
     <link rel="icon" href="https://cdn.glitch.global/aac3c734-7514-4e68-898a-66574e5cc449/logofav1-3.png?v=1731038687620">
     <link
 			rel="stylesheet"
@@ -23,10 +24,16 @@
         </h1>
         <p id="error">
         </p>
-        <form>
-          <input id="l1" type="text" placeholder="Username" autocomplete="username" class="w3-bar-item w3-input w3-bar-item w3-round-large w3-border w3-ripple"><br>
-          <br>
-          <input id="l2" type="password" placeholder="Password" autocomplete="current-password" class="w3-bar-item w3-input w3-bar-item w3-round-large w3-border w3-ripple">
+        <form autocomplete="off">
+          <input autocomplete="false" name="hidden" type="text" style="display:none;">
+          <div class="input-container">
+            <i class="fa fa-user icon"></i>
+            <input class="input-field" type="text" placeholder="Username" id="l1">
+          </div>
+          <div class="input-container">
+            <i class="fa fa-lock icon"></i>
+            <input class="input-field" type="password" placeholder="Password" id="l2">
+          </div>
         </form>
         <br>
         <br>
