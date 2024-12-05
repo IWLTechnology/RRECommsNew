@@ -36,7 +36,7 @@ io.on('connection', async (socket) => {
 	});
 	socket.on('clientSend', async (data) => {
     try{
-     		var decrypted = JSON.parse(key.decrypt(data, 'utf8')); 
+    var decrypted = JSON.parse(key.decrypt(data, 'utf8')); 
     var clientEncryptionKey = new NodeRSA(decrypted.clientKey);
     if(decrypted.mode == "login"){
       var user = null;
@@ -50,14 +50,13 @@ io.on('connection', async (socket) => {
       }
       if(user != null){
         var mySendData = {};
+        mySendData.token = await db.createToken({l1: decrypted.l1, l2: decrypted.l2});
         mySendData.success = true;
         mySendData.profileImages = profileImages;
         mySendData.userNames = userNames;
-        mySendData.un = process["env"]["u" + i + "l1"];
-        mySendData.pw = process["env"]["u" + i + "l2"];
         mySendData.name = userNames[user];
         mySendData.wyd = "login";
-        mySendData.page = "chatHome";
+        mySendData.page = "loginPage";
         socket.emit("serverSend", clientEncryptionKey.encrypt(mySendData, 'base64'));
       }else{
         var mySendData = {};
@@ -68,8 +67,13 @@ io.on('connection', async (socket) => {
       }
     }else if(decrypted.mode == "post"){
       var user = null;
-      for(var i = 0; i < nOfUsers; i++){
-        if(process["env"]["u" + i + "l1"] == decrypted.l1 && process["env"]["u" + i + "l2"]== decrypted.l2){
+      var dbIn = await db.readTokens();
+      var tokens = dbIn.map((dbIn) => dbIn.token);
+      var l1s = dbIn.map((dbIn) => dbIn.l1);
+      var l2s = dbIn.map((dbIn) => dbIn.l2);
+      var id =  tokens.indexOf(decrypted.token);
+      for(var i = 0; i < nOfUsers; i++){        
+        if(process["env"]["u" + i + "l1"] == l1s[id] && process["env"]["u" + i + "l2"]== l2s[id]){
           user = i;
           break;
         }else{
@@ -92,8 +96,13 @@ io.on('connection', async (socket) => {
       }
     }else if(decrypted.mode == "delete"){
       var user = null;
+      var dbIn = await db.readTokens();
+      var tokens = dbIn.map((dbIn) => dbIn.token);
+      var l1s = dbIn.map((dbIn) => dbIn.l1);
+      var l2s = dbIn.map((dbIn) => dbIn.l2);
+      var id =  tokens.indexOf(decrypted.token);
       for(var i = 0; i < nOfUsers; i++){
-        if(process["env"]["u" + i + "l1"] == decrypted.l1 && process["env"]["u" + i + "l2"]== decrypted.l2){
+        if(process["env"]["u" + i + "l1"] == l1s[id] && process["env"]["u" + i + "l2"]== l2s[id]){
           user = i;
           break;
         }else{
@@ -110,8 +119,13 @@ io.on('connection', async (socket) => {
       }
     }else if(decrypted.mode == "get"){
       var user = null;
+      var dbIn = await db.readTokens();
+      var tokens = dbIn.map((dbIn) => dbIn.token);
+      var l1s = dbIn.map((dbIn) => dbIn.l1);
+      var l2s = dbIn.map((dbIn) => dbIn.l2);
+      var id =  tokens.indexOf(decrypted.token);
       for(var i = 0; i < nOfUsers; i++){
-        if(process["env"]["u" + i + "l1"] == decrypted.l1 && process["env"]["u" + i + "l2"]== decrypted.l2){
+        if(process["env"]["u" + i + "l1"] == l1s[id] && process["env"]["u" + i + "l2"]== l2s[id]){
           user = i;
           break;
         }else{
@@ -128,7 +142,7 @@ io.on('connection', async (socket) => {
         socket.emit("serverSend", clientEncryptionKey.encrypt(mySendData, 'base64'));
       }
     }
-      }
+    }
     catch{
       socket.emit("serverSend", 'FATAL DECRYPTION ERROR!!!!!');
     }
@@ -136,5 +150,5 @@ io.on('connection', async (socket) => {
 });
 
 server.listen(3000, () => {
-	console.log('Server active.')
+	console.log(`I'm active!`);
 });

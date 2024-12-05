@@ -1,5 +1,5 @@
       if (Array.prototype.equals)
-        console.warn("Overriding existing Array.prototype.equals. Possible causes: New API defines the method, there's a framework conflict or you've got double inclusions in your code.");
+        console.warn("Overriding existing Array.prototype.equals. May have major repercussions.");
       Array.prototype.equals = function(array) {
         if (!array)
           return false;
@@ -44,6 +44,23 @@
       var socket;
       var myClientKey;
 
+function homePage(n){
+  switch(n){
+    case 'chat':
+      changePage('chatHome');
+      initChat();
+      break;
+    case 'online':
+      break;
+    case 'games':
+      break;
+  }
+}
+
+function changePage(p){
+  document.getElementById("pageToReplace").innerHTML = pages[p];
+}
+
       function initLogin() {
         socket = io();
         myKey = new NodeRSA({
@@ -62,15 +79,22 @@
           switch (decrypted.wyd) {
             case "login":
               if (decrypted.success) {
-                myData.un = decrypted.un;
-                myData.pw = decrypted.pw;
+                myData.token = decrypted.token;
                 myData.profileImages = decrypted.profileImages;
                 myData.userNames = decrypted.userNames;
-                myData.name = decrypted.name;
-                if(decrypted.page == "chatHome"){
-                  document.getElementById("pageToReplace").innerHTML = chatHome;
-                }
-                initChat();
+                myData.name = decrypted.name;  
+                changePage(decrypted.page);
+                setTitle('Home');
+                document.getElementsByTagName('head')[0].innerHTML = defaultHead + `<link rel="stylesheet" href="chat.css">`;
+                document.getElementById("enabled").style.display = "block";
+                document.getElementById("loading").style.display = "none";
+                document.getElementById("hi-name").innerHTML = myData.name;
+                document.getElementById("hi-greeting").innerHTML = 'Welcome';
+                document.getElementById("home-unread").innerHTML = 'EXAMPLE';
+                document.getElementById("home-online-count").innerHTML = 'EXAMPLE';
+                document.getElementById("home-online-users").innerHTML = 'EXAMPLE';
+                document.getElementById("home-games-count").innerHTML = 'EXAMPLE';
+                document.getElementById("home-games-users").innerHTML = 'EXAMPLE';
               } else {
                 document.getElementById("error").innerHTML = decrypted.error;
               }
@@ -134,8 +158,7 @@
 
       function sendData(data) {
         data.clientKey = myClientKey;
-        data.l1 = myData.un;
-        data.l2 = myData.pw;
+        data.token = myData.token;
         socket.emit("clientSend", serverKey.encrypt(data));
       }
 
