@@ -5,6 +5,7 @@ notes.txt
 .node_modules
 .node
 .glitch-assets
+.glitch-assets.save
 shrinkwrap.yaml
 .replit
 replit.nix

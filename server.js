@@ -1,5 +1,5 @@
 const nOfUsers = 2;
-const userNames = ["test1", "test2"]
+const userNames = ["R", "L"]
 const profileImages = ['https://cdn.glitch.global/aac3c734-7514-4e68-898a-66574e5cc449/fedora.png?v=1730765682901','https://cdn.glitch.global/aac3c734-7514-4e68-898a-66574e5cc449/bearScratch.png?v=1730765682663'];
 
 const express = require('express');
@@ -15,6 +15,7 @@ const os = require('os');
 const fs = require('fs');
 
 const NodeRSA = require('node-rsa');
+console.log("Generating RSA Key @2048 bits");
 const key = new NodeRSA({b: 2048});
 
 var app = express();
