@@ -522,7 +522,7 @@ function closevideo(n){
   }else{
     var source = document.getElementById("video-input").value;
     if (source != null) {
-          if (source.search("youtube.com") == -1) {
+          if (source.search("https://youtube.com") == -1) {
             document.getElementById(
               "post"
             ).value += `<video width="100%" height="auto" controls>
